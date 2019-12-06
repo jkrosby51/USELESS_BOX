@@ -9,6 +9,7 @@
 ServoTimer2 myServo;
 
 //notes
+
 #define  c     261 
 #define  d     294 
 #define  e     329 
@@ -25,8 +26,9 @@ ServoTimer2 myServo;
 #define  qq    93
 #define  n     50
 
-int origin = 0; //variable for when the servo is in its original position
-int closing = 0; //variable for when the servo is touching switch
+
+int origin = 1700; //variable for when the servo is in its original position
+int closing = 750; //variable for when the servo is touching switch
 int delayVar = 0; //how long each delay lasts
 int servoPin = 8;
 //int screechPin = 9; //pin for piezo buzzer
@@ -37,8 +39,6 @@ int val2 = 0; //open
 int servoAngle = 0; //variable used for servo angle
 
 void setup() {
-  origin = 180;
-  closing = 90;
   Serial.begin(9600);
   pinMode(servoPin, OUTPUT);
   pinMode(switchPinClose, INPUT);
@@ -66,16 +66,16 @@ void loop() {
   if (val1 == HIGH && val2 == LOW) {
     //switch toward box
     servoAngle = closing;
-    myServo.write(closing);
+    myServo.write(servoAngle);
     //tone(screechPin, 1000, 100);
     delay(delayVar);
-    //music();
+    music();
   }
 //if the switch is pointing towards the human then bring duck back to original place
   else if (val1 == LOW && val2 == HIGH) {
     //switch towards human
     servoAngle = origin;
-//    myServo.write(origin);
+    myServo.write(servoAngle);
     delay(delayVar);
   }
 }
